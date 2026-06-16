@@ -1,0 +1,51 @@
+<p>registration works!</p>
+<form [formGroup]="registerForm">
+    <div class="row">
+        <div class="col-3">
+            <label>Name</label>
+        </div>
+        <div class="col-4">
+            <input type="text" formControlName="name">
+            <span *ngIf="formControl['name'].invalid && formControl['name'].touched">* Name is Required</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3">
+            <label>Email</label>
+        </div>
+        <div class="col-4">
+            <input type="email" formControlName="email">
+            <span *ngIf="formControl['email'].invalid && formControl['email'].touched">
+                <span *ngIf="formControl['email'].errors?.['required']">* email is Required</span>
+                <span *ngIf="formControl['email'].errors?.['email']">* Invalid email</span>
+            </span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3">
+            <label>Password</label>
+        </div>
+        <div class="col-4">
+            <input type="text" formControlName="password">
+            <span *ngIf="formControl['password'].invalid && formControl['password'].touched">
+                <span *ngIf="formControl['password'].errors?.['required']">
+                    * password is Required
+                </span>
+                <span *ngIf="formControl['password'].errors?.['minLength']">
+                    * password minimum 6 char
+                </span>
+            </span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3">
+            <label>Confirm Password</label>
+        </div>
+        <div class="col-4">
+            <input type="text" formControlName="confirmPassword">
+            <span *ngIf="formControl['confirmPassword'].invalid && formControl['confirmPassword'].touched">*
+                confirmPassword is Required</span>
+        </div>
+    </div>
+    <button type="button" (click)="submit()"></button>
+</form>
