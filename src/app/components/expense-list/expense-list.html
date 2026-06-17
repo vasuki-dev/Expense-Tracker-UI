@@ -1,74 +1,73 @@
 <div class="mt-6 bg-white shadow-lg rounded-xl overflow-hidden">
 
-    <!-- Header -->
-    <div class="px-6 py-4 bg-gray-50">
-        <h2 class="text-lg font-semibold text-gray-700">Expense List</h2>
-    </div>
+  <!-- Header -->
+  <div class="px-6 py-4 bg-gray-50">
+    <h2 class="text-lg font-semibold text-gray-700">Expense List</h2>
+  </div>
 
-    <div class="overflow-x-auto mt-6">
-        <table class="w-full text-sm text-left">
+  <div class="overflow-x-auto mt-6">
+    <table class="w-full text-sm text-left">
 
-            <!-- Table Head -->
-            <thead class="bg-gray-100 text-gray-600 uppercase text-xs">
-                <tr>
-                    <th class="px-6 py-3">Date</th>
-                    <th class="px-6 py-3">Category</th>
-                    <th class="px-6 py-3">Amount</th>
-                    <th class="px-6 py-3">Note</th>
-                    <th class="px-6 py-3">Bill</th>
-                    <th class="px-6 py-3 text-center">Action</th>
-                </tr>
-            </thead>
+      <!-- Table Head -->
+      <thead class="bg-gray-100 text-gray-600 uppercase text-xs">
+        <tr>
+          <th class="px-6 py-3">Date</th>
+          <th class="px-6 py-3">Category</th>
+          <th class="px-6 py-3">Amount</th>
+          <th class="px-6 py-3">Note</th>
+          <th class="px-6 py-3">Bill</th>
+          <th class="px-6 py-3 text-center">Action</th>
+        </tr>
+      </thead>
 
-            <!-- Table Body -->
-            <tbody class="divide-y">
+      <!-- Table Body -->
+      <tbody class="divide-y">
 
-                <tr *ngFor="let e of expenses" class="hover:bg-gray-50 transition">
+        @for (e of expenses; track e) {
+          <tr class="hover:bg-gray-50 transition">
+            <td class="px-6 py-4 text-gray-700">
+              {{ e.date | date:'dd MMM yyyy' }}
+            </td>
+            <td class="px-6 py-4">
+              <span class="px-3 py-1 text-xs font-medium bg-blue-100 text-blue-700 rounded-full">
+                {{ e.category }}
+              </span>
+            </td>
+            <td class="px-6 py-4 font-semibold text-green-600">
+              ₹ {{ e.amount }}
+            </td>
+            <td class="px-6 py-4 text-gray-600">
+              {{ e.note || '-' }}
+            </td>
+            <td class="px-6 py-4">
+              <a [href]="e.bill" target="_blank" class="text-blue-600 hover:underline font-medium">
+                View
+              </a>
+            </td>
+            <td class="px-6 py-4 text-center">
+              <button class="px-3 py-1 bg-blue-100 text-blue-600 rounded hover:bg-blue-200 transition"
+                (click)="onEdit(e)">
+                ✏️ Edit
+              </button>
+            </td>
+          </tr>
+        }
 
-                    <td class="px-6 py-4 text-gray-700">
-                        {{ e.date | date:'dd MMM yyyy' }}
-                    </td>
+        <!-- Empty State -->
+        @if (expenses.length === 0) {
+          <tr>
+            <td colspan="6" class="text-center py-6 text-gray-400">
+              No expenses found
+            </td>
+          </tr>
+        }
 
-                    <td class="px-6 py-4">
-                        <span class="px-3 py-1 text-xs font-medium bg-blue-100 text-blue-700 rounded-full">
-                            {{ e.category }}
-                        </span>
-                    </td>
+      </tbody>
 
-                    <td class="px-6 py-4 font-semibold text-green-600">
-                        ₹ {{ e.amount }}
-                    </td>
-
-                    <td class="px-6 py-4 text-gray-600">
-                        {{ e.note || '-' }}
-                    </td>
-
-                    <td class="px-6 py-4">
-                        <a [href]="e.bill" target="_blank" class="text-blue-600 hover:underline font-medium">
-                            View
-                        </a>
-                    </td>
-
-                    <td class="px-6 py-4 text-center">
-                        <button class="px-3 py-1 bg-blue-100 text-blue-600 rounded hover:bg-blue-200 transition"
-                            (click)="onEdit(e)">
-                            ✏️ Edit
-                        </button>
-                    </td>
-
-                </tr>
-
-                <!-- Empty State -->
-                <tr *ngIf="expenses.length === 0">
-                    <td colspan="6" class="text-center py-6 text-gray-400">
-                        No expenses found
-                    </td>
-                </tr>
-
-            </tbody>
-
-        </table>
-    </div>
-    <app-expense-form *ngIf="openForm" [editData]="editData" (close)="closeForm()">
+    </table>
+  </div>
+  @if (openForm) {
+    <app-expense-form [editData]="editData" (close)="closeForm()">
     </app-expense-form>
+  }
 </div>
