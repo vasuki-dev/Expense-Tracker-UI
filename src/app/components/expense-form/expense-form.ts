@@ -1,12 +1,12 @@
 import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ExpenseService } from '../../service/expense_service';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-expense-form',
   templateUrl: './expense-form.html',
-  imports: [CommonModule, ReactiveFormsModule]
+  imports: [ReactiveFormsModule]
 })
 export class ExpenseForm implements OnChanges {
 

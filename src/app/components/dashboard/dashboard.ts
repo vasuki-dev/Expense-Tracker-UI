@@ -3,11 +3,11 @@ import { Router } from '@angular/router';
 import { ExpenseService } from '../../service/expense_service';
 import { ExpenseForm } from '../expense-form/expense-form';
 import { ExpenseList } from '../expense-list/expense-list';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-dashboard',
-  imports: [ExpenseForm,CommonModule],
+  imports: [ExpenseForm],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.scss'
 })
