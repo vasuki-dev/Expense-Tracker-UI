@@ -1,0 +1,30 @@
+<!-- @if(loaderservice.loading()){
+<div class="fixed inset-0 bg-black/20 backdrop-blur-sm flex justify-center items-center z-50">
+  <div class="w-10 h-10 border-4 border-gray-300 border-t-blue-500 rounded-full animate-spin"></div>
+</div>
+} -->
+
+@if(loaderservice.loading()) {
+<div class="fixed inset-0 bg-white/30 backdrop-blur-sm flex justify-center items-center z-50">
+
+    <div class="relative w-24 h-24">
+
+        <!-- Outer Ring -->
+        <div class="absolute inset-0 rounded-full border-[6px] border-green-100 border-t-green-600 animate-spin">
+        </div>
+
+        <!-- Inner Ring -->
+        <div
+            class="absolute inset-3 rounded-full border-[6px] border-green-200 border-b-green-500 animate-spin-reverse">
+        </div>
+
+        <!-- Center Icon -->
+        <div class="absolute inset-0 flex items-center justify-center">
+            <!-- <img src="CashQuery.png" class="w-10 h-10 animate-pulse"> -->
+            <span class="text-3xl font-bold text-green-600">₹</span>
+        </div>
+
+    </div>
+
+</div>
+}

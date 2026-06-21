@@ -66,10 +66,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "Task_Management_Frontend:build:production"
+              "buildTarget": "expense-tracker-ui:build:production"
             },
             "development": {
-              "buildTarget": "Task_Management_Frontend:build:development"
+              "buildTarget": "expense-tracker-ui:build:development"
             }
           },
           "defaultConfiguration": "development"
