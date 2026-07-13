@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { environment } from "../../environments/environment.prod";
+import { environment } from "../../environments/environment";
 
 @Injectable({ providedIn: "root" })
 export class loginService {
@@ -12,4 +12,8 @@ export class loginService {
     login(data: { userName: string; password: string }): Observable<any> {
         return this.http.post(`${this.apiUrl}/auth/login`, data);
     }
+    refreshToken(refreshToken: any): Observable<any> {
+        return this.http.post(`${this.apiUrl}/auth/refreshtoken`, refreshToken);
+    }
+
 }

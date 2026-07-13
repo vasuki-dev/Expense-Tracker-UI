@@ -24,38 +24,45 @@
         <!-- Today Expense -->
         <div class="flex items-center gap-4 bg-blue-50 p-6 rounded-lg shadow hover:shadow-md transition">
 
-          <div
-            class="bg-blue-200 text-blue-800 text-2xl w-14 h-14 flex items-center justify-center rounded-lg">
+          <div class="bg-blue-200 text-blue-800 text-2xl w-14 h-14 flex items-center justify-center rounded-lg">
             ₹
           </div>
 
           <div>
             <p class="text-gray-600">Today's Expense</p>
-            <h3 class="text-2xl font-bold text-gray-800">₹ 1,200</h3>
+            <h3 class="text-2xl font-bold text-gray-800">{{todayExpenses() ? (todayExpenses() | number) : 0}} </h3>
           </div>
 
         </div>
 
         <!-- Monthly Expense -->
         <div class="flex items-center gap-4 bg-blue-50 p-6 rounded-lg shadow hover:shadow-md transition">
-
           <div
-            class="bg-blue-200 text-blue-800 text-2xl w-11 h-11 flex items-center justify-center rounded-lg expenseMonth ">
-                        <select class="w-full px-4 py-2 border border-gray-300 rounded-lg 
-         bg-white focus:outline-none focus:ring-2 focus:ring-gray-500" (change)="monthChange($event)">
+            class="inline-flex items-center gap-3 bg-slate-50 border border-slate-200 rounded-full px-5 py-2 shadow-sm">
 
-              <option value="">Select Month</option>
-              <option value="1">Jan</option>
-              <option value="2">Feb</option>
-              <option value="3">Mar</option>
-              <option value="4">Apr</option>
+            <i class="pi pi-calendar text-slate-500"></i>
+
+            <input type="month" [max]="maxMonth" [value]="selectedMonthYear()" (change)="monthChange($event)"
+              class="bg-transparent outline-none text-gray-700 font-medium cursor-pointer">
+
+          </div>
+          <!-- <div
+            class="bg-blue-200 text-blue-800 text-2xl w-11 h-11 flex items-center justify-center rounded-lg expenseMonth ">
+            <select class="px-4 py-2 rounded-lg border border-gray-300" [ngModel]="selectedMonth()"
+              (change)="monthChange($event)">
+
+              @for (month of months; track month.id) {
+              <option [value]="month.id">
+                {{ month.name }}
+              </option>
+              }
 
             </select>
-          </div>
+          </div> -->
 
           <div>
             <p class="text-gray-600">This Month's Total</p>
-            <h3 class="text-2xl font-bold text-gray-800">₹ 28,450</h3>
+            <h3 class="text-2xl font-bold text-gray-800">₹ {{monthTotal() ? (monthTotal() | number) : 0 }}</h3>
           </div>
 
         </div>
@@ -66,10 +73,17 @@
       <div class="grid grid-cols-2 gap-6 bg-white p-6 rounded-lg shadow">
 
         <button
-          class="flex items-center justify-center gap-3 bg-teal-600 text-white text-lg font-semibold py-4 rounded-lg hover:bg-teal-700 transition"
+          class="flex items-center justify-center gap-3 border-b bg-gradient-to-r from-teal-600 to-cyan-600 text-white text-lg font-semibold py-4 rounded-lg hover:bg-teal-700 transition"
           (click)="openAdd()">
 
-          ➕ Add Expense
+            <span
+      class="text-xl transition-transform group-hover:rotate-90">
+        +
+    </span>
+
+    <span class="font-semibold">
+        Add Expense
+    </span>
         </button>
 
         <button
@@ -84,16 +98,85 @@
     <!-- <app-expense-list *ngIf="showList" [expenses]="expenses">
   </app-expense-list> -->
 
-  @if (openForm) {
+    <!-- @if (openForm) {
     <app-expense-form [editData]="editData" (close)="closeForm()">
     </app-expense-form>
-  }
-</div>
-
-<div class="col-span-4 p-4">
-  <div class="flex justify-center">
-    <img src="expenseTracker.jpg" width="150px" class="img">
+    } -->
   </div>
-</div>
+
+  <div class="col-span-4 p-4">
+    <div class="flex justify-center">
+      <img src="expenseTracker.jpg" width="150px" class="img">
+    </div>
+  </div>
 
 </div>
+
+<!-- dialog -->
+@if (openForm) {
+
+<div
+    class="fixed inset-0 z-50
+           flex items-center justify-center
+           bg-slate-900/50
+           backdrop-blur-sm
+           animate-fadeIn">
+
+    <!-- Dialog -->
+    <div
+        class="relative
+               w-[95%]
+               max-w-xl
+               bg-white
+               rounded-2xl
+               shadow-2xl
+               overflow-hidden
+               animate-scaleIn">
+
+        <!-- Header -->
+        <div
+            class="flex items-center justify-between
+                   px-6 py-5
+                   border-b
+                   bg-gradient-to-r from-teal-600 to-cyan-600  max-h-[65vh]">
+
+            <div>
+                <h2 class="text-xl font-bold text-white">
+                    {{ editData ? 'Edit Expense' : 'Add Expense' }}
+                </h2>
+
+                <p class="text-sm text-teal-100 mt-1">
+                    Fill in the expense details
+                </p>
+            </div>
+
+            <button
+                (click)="closeForm()"
+                class="w-10 h-10
+                       rounded-full
+                       bg-white/20
+                       hover:bg-white/30
+                       text-white
+                       transition">
+
+                ✕
+
+            </button>
+
+        </div>
+
+        <!-- Body -->
+        <div class="p-6 max-h-[75vh] overflow-y-auto">
+
+            <app-expense-form
+                [editData]="editData"
+                (close)="closeForm()">
+            </app-expense-form>
+
+        </div>
+
+    </div>
+
+</div>
+
+}

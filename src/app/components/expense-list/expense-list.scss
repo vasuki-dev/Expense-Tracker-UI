@@ -1,0 +1,33 @@
+@theme {
+
+  --animate-fadeIn: fadeIn .25s ease;
+
+  --animate-scaleIn: scaleIn .3s cubic-bezier(.22,1,.36,1);
+
+}
+
+@keyframes fadeIn {
+
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+
+}
+
+@keyframes scaleIn {
+
+  from {
+    opacity: 0;
+    transform: scale(.92) translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+
+}

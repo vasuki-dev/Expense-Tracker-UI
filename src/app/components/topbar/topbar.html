@@ -1,37 +1,43 @@
-<nav class="relative">
-   <!-- Header -->
-        <div class="flex justify-between items-center border-b px-6 py-4">
-
-            <div class="flex items-center gap-2" (click)="goDash()">
-                <div class="bg-teal-600 text-white p-2 rounded-md font-bold">E</div>
-                <h1 class="text-xl font-semibold text-gray-700">
-                    Expense<span class="text-teal-600">Tracker</span>
-                </h1>
-            </div>
-
-            <div class="flex items-center gap-4">
-                <p class="text-gray-600 font-medium">
-                    Hi, Sri Ganesh Stores!
-                </p>
-                <button type="button"
-                    class="relative rounded-full p-1 text-gray-400 focus:outline-2 focus:outline-offset-2 focus:outline-indigo-500">
-                    <span class="absolute -inset-1.5"></span>
-                    <span class="sr-only">View notifications</span>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-slot="icon"
-                        aria-hidden="true" class="size-6">
-                        <path
-                            d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0"
-                            stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
-                </button>
-                <button
-                    class="flex items-center gap-2 border px-4 py-2 rounded-md text-gray-600 hover:bg-gray-100 transition" (click)="logout()">
-                    Logout
-                </button>
-            </div>
-
+<div class="flex justify-between items-center border-b bg-white px-6 py-4 sticky top-0 z-50">
+    <!-- Logo -->
+    <div class="flex items-center gap-3 cursor-pointer group" (click)="goDash()">
+        <div class="border-b bg-gradient-to-r from-teal-600 to-cyan-600 text-white w-9 h-9 flex items-center justify-center rounded-xl font-bold text-2xl shadow-md group-hover:scale-110 transition-transform">
+            E
         </div>
-</nav>
+        <h1 class="text-2xl font-semibold text-gray-800">
+            Expense<span class="text-teal-600">Tracker</span>
+        </h1>
+    </div>
+
+    <!-- Right side -->
+    <div class="flex items-center gap-6">
+        <p class="text-gray-700 font-medium hidden sm:block">
+            Hi, <span class="font-semibold text-teal-700">Sri Ganesh Stores</span>!
+        </p>
+
+        <!-- Notifications -->
+        <button 
+            type="button"
+            class="relative p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-xl transition-colors focus:outline-2 focus:outline-offset-2 focus:outline-teal-500">
+            <span class="sr-only">View notifications</span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6 6 0 00-9-5.197V8.5m.002 3.5L12 15l-3-3" />
+            </svg>
+            <!-- Notification badge -->
+            <!-- <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full ring-2 ring-white"></span> -->
+        </button>
+
+        <!-- Logout -->
+        <button
+            (click)="logout()"
+            class="flex items-center gap-2 px-5 py-2.5 text-sm font-medium text-gray-700 hover:text-red-600 hover:bg-red-50 border border-gray-200 hover:border-red-200 rounded-xl transition-all duration-200">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4V7m-4 4V7" />
+            </svg>
+            Logout
+        </button>
+    </div>
+</div>
 <!-- <div class="min-h-screen bg-gray-100 flex items-start p-2"> -->
     <router-outlet></router-outlet>
 <!-- </div> -->

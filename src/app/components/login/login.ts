@@ -52,7 +52,7 @@ export class Login {
         // ✅ store tokens
         localStorage.setItem('access_token', res.token);
         localStorage.setItem('refresh_token', res.refreshToken);
-
+        localStorage.setItem('userdetails', JSON.stringify(res.userdetails));
         // redirect
         this.router.navigate(['/layout/dashboard']);
       },

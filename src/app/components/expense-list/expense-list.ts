@@ -1,64 +1,122 @@
-import { CommonModule } from '@angular/common';
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { CommonModule, DatePipe } from '@angular/common';
+import { Component, Input, Output, EventEmitter, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
 import { ExpenseForm } from '../expense-form/expense-form';
+import { ExpenseService } from '../../service/expense_service';
+import { ToastrService } from 'ngx-toastr';
+import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-expense-list',
-  imports: [CommonModule, ExpenseForm],
+  imports: [CommonModule, ExpenseForm, FormsModule],
   templateUrl: './expense-list.html',
-  styleUrl: './expense-list.scss'
+  styleUrl: './expense-list.scss',
+  providers: [DatePipe]
 })
-export class ExpenseList {
+export class ExpenseList implements OnInit {
+  filteredExpenses!: any[];
+  selectedExpense: any;
+  constructor(private expeneService: ExpenseService, private toast: ToastrService, private cdr: ChangeDetectorRef) { }
   // receive expenses from dashboard
+  expenseService = inject(ExpenseService);
+  expenses = this.expenseService.expense || [];
+  userdetails: any;
+  showDeleteDialog = false;
   openForm!: boolean;
-  expenses = [
-    {
-      date: '2026-04-01',
-      category: 'Food',
-      amount: 250,
-      note: 'Lunch',
-      bill: 'https://via.placeholder.com/150'
-    },
-    {
-      date: '2026-04-02',
-      category: 'Travel',
-      amount: 120,
-      note: 'Bus ticket',
-      bill: 'https://via.placeholder.com/150'
-    },
-    {
-      date: '2026-04-03',
-      category: 'Groceries',
-      amount: 850,
-      note: 'Weekly shopping',
-      bill: 'https://via.placeholder.com/150'
-    },
-    {
-      date: '2026-04-04',
-      category: 'Electricity',
-      amount: 1500,
-      note: 'EB Bill',
-      bill: 'https://via.placeholder.com/150'
-    },
-    {
-      date: '2026-04-05',
-      category: 'Entertainment',
-      amount: 300,
-      note: 'Movie',
-      bill: 'https://via.placeholder.com/150'
-    }
-  ];
-
+  categories: any;
+  searchTerm: any;
+  selectedCategory: any;
   // send edit event to dashboard
   @Output() edit = new EventEmitter<any>();
   editData: any;
+  ngOnInit(): void {
+    this.userdetails = JSON.parse(localStorage.getItem('userdetails') || '{}');
+    console.log(this.userdetails, '------------> user details');
+    let data = {
+      userCode: this.userdetails?.userCode
+    }
+    this.expeneService.expenseList(data);
+  }
+  applyFilters() {
 
-  onEdit(expense: any) {
-    this.editData=expense;
+    const search = this.searchTerm
+      .toLowerCase()
+      .trim();
+
+    if (!search) {
+      this.filteredExpenses = this.expenses();
+      return;
+    }
+
+
+    this.filteredExpenses = this.expenses().filter(expense => {
+
+      return (
+        expense.note
+          ?.toLowerCase()
+          .includes(search) ||
+
+        expense.category
+          ?.toLowerCase()
+          .includes(search) ||
+
+        expense.amount
+          .toString()
+          .includes(search)
+      );
+
+    });
+
+  }
+  openAddForm() {
     this.openForm = true;
-    console.log(expense,'---------------> expense');
+  }
+  onDelete(expense: any) {
+    this.selectedExpense = expense;
+    this.showDeleteDialog = true;
+
+  }
+  cancelDelete() {
+
+    this.showDeleteDialog = false;
+
+    this.selectedExpense = null;
+
+  }
+  confirmDelete() {
+
+    const payload = {
+      _id: this.selectedExpense._id
+    };
+
+    this.expeneService.deleteExpense(payload).subscribe({
+
+      next: (res: any) => {
+
+        this.showDeleteDialog = false;
+
+        this.selectedExpense = null;
+        this.toast.success(res?.message || 'Expense deleted successfully');
+        this.closeForm();
+        this.reloadExpenseList();
+
+      }
+
+    });
+
+  }
+  onEdit(expense: any) {
+    this.editData = expense;
+    this.openForm = true;
+    console.log(expense, '---------------> expense');
     // this.edit.emit(expense);
   }
   closeForm() {
-    this.openForm = false
+    this.openForm = false;
+    this.editData = null;
+  }
+  reloadExpenseList() {
+    let data = {
+      userCode: this.userdetails?.userCode
+    }
+    this.expeneService.expenseList(data, true);
   }
 }

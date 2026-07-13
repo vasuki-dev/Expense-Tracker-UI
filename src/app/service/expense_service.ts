@@ -1,34 +1,43 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
+import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class ExpenseService {
+    private apiUrl = `${environment.apiUrl}/api`; // change your backend URL
+    private readonly _expense = signal<any[]>([]);
+    expense = this._expense.asReadonly();
+    constructor(private http: HttpClient) { }
 
-    expenses = signal<any[]>([
-        {
-            id: 1,
-            date: '2026-04-26',
-            category: 'Purchase',
-            amount: 500,
-            note: 'Rice',
-            bill: 'bill1.png'
+    expenseList(data: { userCode: number }, reload?: boolean) {
+        if (this._expense().length > 0 && !reload) {
+            return;
         }
-    ])
-
-    getMonthExpenses(month: string) {
-
-        return this.expenses().filter((e: any) => `${new Date(e.date).getMonth() + 1}` == month)
-
+        this.http.post(`${this.apiUrl}/expense/list`, data).subscribe({
+            next: (res: any) => {
+                this._expense.set(res?.response);
+            }
+        });
     }
+    categoryList() {
+        return this.http.get(`${this.apiUrl}/expense/categorylist`);
+    }
+
+
 
     addExpense(data: any) {
-        this.expenses.update(list => [...list, data])
+        return this.http.post(`${this.apiUrl}/expense/add`, data);
     }
 
-    updateExpense(id: number, data: any) {
+    updateExpense(data: any) {
 
-        this.expenses.update(list =>
-            list.map(e => e.id == id ? data : e)
-        )
+        return this.http.post(`${this.apiUrl}/expense/update`, data);
+
+    }
+    deleteExpense(data: any) {
+
+        return this.http.post(`${this.apiUrl}/expense/delete`, data);
 
     }
 

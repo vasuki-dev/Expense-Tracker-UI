@@ -10,6 +10,7 @@ export class Topbar {
   constructor(private router: Router) { }
   logout() {
     this.router.navigate(['/login']);
+    localStorage.clear();
   }
   goDash(){
     this.router.navigate(['/layout/dashboard']);
