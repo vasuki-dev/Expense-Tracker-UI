@@ -12,7 +12,7 @@
       </h2>
 
       <!-- Welcome Card -->
-      <div class="rounded-2xl bg-white shadow p-5 sm:p-6">
+      <div class="rounded-2xl bg-white shadow p-5 sm:p-6 mb-6">
         <h3 class="text-xl font-semibold text-gray-700">
           Hello, {{userdetails?.userName}} 👋
         </h3>
@@ -36,13 +36,13 @@
         </div>
 
         <!-- Monthly Expense -->
-        <div class="bg-blue-50 rounded-2xl p-5 shadow">
-          <div class="flex flex-col gap-4">
+        <div class="flex flex-col lg:flex-row sm:items-center lg:justify-between gap-4 bg-blue-50 rounded-2xl p-5 shadow">
+        <div class="">
+
             <div class="inline-flex items-center
                    bg-white rounded-xl border
                    px-4 py-2 w-fit">
-              <i class="pi pi-calendar text-slate-500"></i>
-
+               <!-- <i class="fa-regular fa-calendar text-slate-500 mr-2"></i> -->
               <input type="month" [max]="maxMonth" [value]="selectedMonthYear()" (change)="monthChange($event)"
                 class="bg-transparent outline-none text-gray-700 font-medium cursor-pointer">
 
@@ -62,8 +62,8 @@
             </select>
           </div> -->
 
-          <div>
-            <p class="text-gray-600">This Month's Total</p>
+          <div class="lg:text-right">
+            <p class="text-gray-600 text-sm">This Month's Total</p>
             <h3 class="text-2xl font-bold text-gray-800">₹ {{monthTotal() ? (monthTotal() | number) : 0 }}</h3>
           </div>
 
