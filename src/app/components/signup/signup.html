@@ -1,0 +1,411 @@
+<div class="min-h-screen bg-[url('/login.png')] bg-cover bg-center flex justify-end items-center p-10">
+
+    <div class="bg-white/95 backdrop-blur-sm shadow-2xl rounded-3xl p-10 w-full max-w-xl">
+
+        <!-- Logo -->
+
+        <div class="flex justify-center mb-3">
+
+            <img src="CashQuery.png" class="w-36">
+
+        </div>
+
+        <h2 class="text-3xl font-bold text-center text-slate-800">
+
+            Create Account
+
+        </h2>
+
+        <p class="text-center text-slate-500 mt-2 mb-8">
+
+            Create your CashQuery account
+
+        </p>
+
+        <form [formGroup]="signupForm" (ngSubmit)="signup()">
+
+            <!-- Full Name -->
+
+            <div class="mb-5">
+
+                <label class="block mb-2 font-semibold text-slate-700">
+
+                    Full Name
+
+                    <span class="text-red-500">*</span>
+
+                </label>
+
+                <input type="text" formControlName="fullName" placeholder="Enter your full name" class="w-full rounded-xl border px-4 py-3 bg-slate-50
+                    focus:bg-white
+                    focus:ring-4
+                    focus:ring-teal-100
+                    focus:border-teal-500
+                    transition-all" [ngClass]="{
+                        'border-red-500': submitted && f['fullName'].invalid,
+                        'border-slate-300': !(submitted && f['fullName'].invalid)
+                    }">
+
+                @if(submitted && f['fullName'].errors){
+
+                <small class="text-red-500">
+
+                    Full Name is required.
+
+                </small>
+
+                }
+
+            </div>
+
+            <!-- Username -->
+
+            <div class="mb-5">
+
+                <label class="block mb-2 font-semibold text-slate-700">
+
+                    Username
+
+                    <span class="text-red-500">*</span>
+
+                </label>
+
+                <input type="text" formControlName="userName" placeholder="Choose a username" class="w-full rounded-xl border px-4 py-3 bg-slate-50
+                    focus:bg-white
+                    focus:ring-4
+                    focus:ring-teal-100
+                    focus:border-teal-500 transition-all" [ngClass]="{
+                        'border-red-500': submitted && f['userName'].invalid,
+                        'border-slate-300': !(submitted && f['userName'].invalid)
+                    }">
+
+                @if(submitted && f['userName'].errors){
+
+                <small class="text-red-500">
+
+                    Username is required.
+
+                </small>
+
+                }
+
+            </div>
+
+            <!-- Email -->
+
+            <div class="mb-5">
+
+                <label class="block mb-2 font-semibold text-slate-700">
+
+                    Email Address
+
+                    <span class="text-red-500">*</span>
+
+                </label>
+
+                <input type="email" formControlName="email" placeholder="example@gmail.com" class="w-full rounded-xl border px-4 py-3 bg-slate-50
+                    focus:bg-white
+                    focus:ring-4
+                    focus:ring-teal-100
+                    focus:border-teal-500 transition-all" [ngClass]="{
+                        'border-red-500': submitted && f['email'].invalid,
+                        'border-slate-300': !(submitted && f['email'].invalid)
+                    }">
+
+                @if(submitted && f['email'].errors){
+
+                <small class="text-red-500">
+
+                    Valid email is required.
+
+                </small>
+
+                }
+
+            </div>
+
+            <!-- Mobile -->
+
+            <div class="mb-5">
+
+                <label class="block mb-2 font-semibold text-slate-700">
+
+                    Mobile Number
+
+                    <span class="text-red-500">*</span>
+
+                </label>
+
+                <input type="text" maxlength="10" formControlName="mobile" placeholder="9876543210" class="w-full rounded-xl border px-4 py-3 bg-slate-50
+                    focus:bg-white
+                    focus:ring-4
+                    focus:ring-teal-100
+                    focus:border-teal-500 transition-all" [ngClass]="{
+                        'border-red-500': submitted && f['mobile'].invalid,
+                        'border-slate-300': !(submitted && f['mobile'].invalid)
+                    }">
+
+                @if(submitted && f['mobile'].errors){
+
+                <small class="text-red-500">
+
+                    Enter a valid mobile number.
+
+                </small>
+
+                }
+
+            </div>
+
+            <!-- Password -->
+
+            <div class="mb-5">
+
+                <label class="block mb-2 font-semibold text-slate-700">
+
+                    Password
+
+                    <span class="text-red-500">*</span>
+
+                </label>
+
+                <input type="password" formControlName="password" placeholder="Enter password" class="w-full rounded-xl border px-4 py-3 bg-slate-50
+                    focus:bg-white
+                    focus:ring-4
+                    focus:ring-teal-100
+                    focus:border-teal-500 transition-all" [ngClass]="{
+                        'border-red-500': submitted && f['password'].invalid,
+                        'border-slate-300': !(submitted && f['password'].invalid)
+                    }">
+                @if(submitted && f['password'].errors){
+
+                <small class="text-red-500">
+
+                    Password is required.
+
+                </small>
+
+                }
+                @if(f['password'].errors?.['minlength']
+                && (f['password'].touched || submitted)){
+
+                <small class="text-red-500">
+
+                    Password must contain at least 6 characters.
+
+                </small>
+
+                }
+
+            </div>
+
+            <!-- Confirm Password -->
+
+            <div class="mb-6">
+
+                <label class="block mb-2 font-semibold text-slate-700">
+
+                    Confirm Password
+
+                    <span class="text-red-500">*</span>
+
+                </label>
+
+                <input type="password" formControlName="confirmPassword" placeholder="Confirm password" class="w-full rounded-xl border px-4 py-3 bg-slate-50
+                    focus:bg-white
+                    focus:ring-4
+                    focus:ring-teal-100
+                    focus:border-teal-500 transition-all" [ngClass]="{
+                        'border-red-500': submitted && f['confirmPassword'].invalid,
+                        'border-slate-300': !(submitted && f['confirmPassword'].invalid)
+                    }">
+                @if(submitted && f['confirmPassword'].errors){
+
+                <small class="text-red-500">
+
+                    Confirm Password is required.
+
+                </small>
+
+                }
+                @if(f['confirmPassword'].errors?.['passwordMismatch']
+                && (f['confirmPassword'].touched || submitted)){
+
+                <small class="text-red-500">
+
+                    Passwords do not match.
+
+                </small>
+
+                }
+
+            </div>
+
+            <!-- Terms -->
+
+            <div class="flex items-start gap-3 mb-7">
+
+                <input type="checkbox" formControlName="acceptTerms" class="mt-0 h-5 w-5 accent-teal-600">
+
+                <label class="text-sm text-slate-600">
+
+                    I agree to
+
+                    <button type="button" (click)="openPolicy()"
+                        class="font-semibold text-teal-600 hover:text-teal-700 hover:underline">
+
+                        Terms & Privacy Policy
+
+                    </button>
+
+                </label>
+                
+            </div>
+            @if(submitted && f['acceptTerms'].errors){
+
+            <p class="mt-0 mb-1 text-sm text-red-500 flex items-center gap-1">
+
+                ⚠️ Please read and accept the Terms & Privacy Policy to continue.
+
+            </p>
+
+            }
+
+            <!-- Button -->
+
+            <button class="w-full py-3 rounded-xl
+                bg-gradient-to-r
+                from-teal-600
+                to-cyan-600
+                text-white
+                font-semibold
+                shadow-lg
+                hover:shadow-xl
+                hover:scale-[1.02]
+                transition-all">
+
+                Create Account
+
+            </button>
+
+        </form>
+
+        <div class="text-center mt-8">
+
+            <span class="text-slate-500">
+
+                Already have an account?
+
+            </span>
+
+            <a routerLink="/login" class="ml-1 font-semibold text-teal-600 hover:underline">
+
+                Login
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+@if(showPolicy){
+
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+
+    <div class="bg-white rounded-2xl shadow-2xl w-[90%] max-w-2xl">
+
+        <!-- Header -->
+
+        <div class="flex items-center justify-between border-b px-6 py-4">
+
+            <h2 class="text-xl font-bold text-slate-800">
+
+                Terms & Privacy Policy
+
+            </h2>
+
+            <button (click)="closePolicy()" class="text-2xl text-slate-500 hover:text-red-500">
+
+                ×
+
+            </button>
+
+        </div>
+
+        <!-- Body -->
+
+        <div class="max-h-[500px] overflow-y-auto px-6 py-5 text-slate-600 space-y-6">
+
+            <div>
+
+                <h3 class="font-bold text-lg text-slate-800">
+
+                    Terms & Conditions
+
+                </h3>
+
+                <ul class="list-disc ml-6 mt-3 space-y-2">
+
+                    <li>CashQuery is intended for personal and business expense tracking.</li>
+
+                    <li>You are responsible for keeping your login credentials secure.</li>
+
+                    <li>Do not share your account with others.</li>
+
+                    <li>You are responsible for all activities performed using your account.</li>
+
+                    <li>Upload only genuine expense receipts.</li>
+
+                    <li>Any misuse of the application may lead to account suspension.</li>
+
+                </ul>
+
+            </div>
+
+            <div>
+
+                <h3 class="font-bold text-lg text-slate-800">
+
+                    Privacy Policy
+
+                </h3>
+
+                <ul class="list-disc ml-6 mt-3 space-y-2">
+
+                    <li>Your personal information is stored securely.</li>
+
+                    <li>Your password is encrypted before storage.</li>
+
+                    <li>Your expense records are private and accessible only to you.</li>
+
+                    <li>Uploaded bills are used only for expense management.</li>
+
+                    <li>We never sell or share your personal information with third parties.</li>
+
+                    <li>You may request account deletion at any time.</li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+        <!-- Footer -->
+
+        <div class="flex justify-end border-t px-6 py-4">
+
+            <button (click)="closePolicy()"
+                class="rounded-xl bg-teal-600 px-6 py-2.5 text-white font-semibold hover:bg-teal-700 transition">
+
+                I Understand
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+}

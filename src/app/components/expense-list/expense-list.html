@@ -1,29 +1,42 @@
-<div class="mt-6 bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden">
+<div class="mt-4 sm:mt-6 bg-white rounded-2xl sm:rounded-3xl shadow-xl border border-slate-100 overflow-hidden">
 
   <!-- Top Green Accent -->
   <div class="h-2 border-b bg-gradient-to-r from-teal-600 to-cyan-600"></div>
 
   <!-- Header -->
-  <div class="px-8 py-5 flex items-center justify-between border-b">
-    <div class="flex items-center gap-4">
+  <div class="px-4 sm:px-6 lg:px-8 py-5
+            flex flex-col lg:flex-row
+            lg:items-center
+            lg:justify-between
+            gap-4
+            border-b">
+    <div class="flex items-center gap-3 sm:gap-4">
       <div class="w-11 h-11 bg-emerald-600 rounded-2xl flex items-center justify-center text-white text-2xl">
         💸
       </div>
       <div>
-        <h1 class="text-2xl font-semibold text-slate-800">Expense Management</h1>
+        <h1 class="text-xl sm:text-2xl font-semibold text-slate-800">Expense Management</h1>
         <p class="text-sm text-slate-500">Smart tracking for your business expenses</p>
       </div>
     </div>
 
-    <button (click)="openAddForm()"
-      class="px-6 py-3 border border-slate-300  border-b hover:bg-gradient-to-r hover:from-teal-600 hover:to-cyan-600  hover:text-white rounded-2xl font-medium transition-all flex items-center gap-2">
+    <button (click)="openAddForm()" class="w-full lg:w-auto
+px-5 py-3
+rounded-2xl
+border border-slate-300
+hover:bg-gradient-to-r
+hover:from-teal-600
+hover:to-cyan-600
+hover:text-white
+flex items-center justify-center gap-2
+transition-all">
       <span class="text-xl">+</span> Add New Expense
     </button>
   </div>
 
   <!-- Search -->
-  <div class="px-10 py-5 flex justify-end">
-    <div class="relative w-[380px]">
+  <div class="px-4 sm:px-6 lg:px-10 py-5 flex justify-center lg:justify-end">
+    <div class="relative w-full sm:w-[380px]">
       <input [(ngModel)]="searchTerm" (input)="applyFilters()" type="text"
         class="w-full bg-white border border-slate-200 rounded-3xl py-3.5 pl-12 focus:border-emerald-500 focus:ring-emerald-100 outline-none"
         placeholder="Search by note, category or amount...">
@@ -34,54 +47,83 @@
   <!-- Table Container - Centered with Padding -->
   <div class="px-6 py-2 pb-6">
     <div class="overflow-hidden rounded-2xl border border-slate-100">
-      <div class="overflow-auto" style="max-height: 450px;">
-        <table class="w-full min-w-[1000px] mx-auto">
+      <div class="overflow-x-auto" style="max-height: 450px;">
+        <table class="w-full min-w-[850px] lg:min-w-full mx-auto">
           <thead class="border-b bg-gradient-to-r from-teal-600 to-cyan-600 text-white sticky top-0 z-10">
             <tr>
-              <th class="px-6 py-4 text-left font-medium">DATE</th>
-              <th class="px-6 py-4 text-left font-medium">CATEGORY</th>
-              <th class="px-6 py-4 text-right font-medium">AMOUNT</th>
-              <th class="px-6 py-4 text-left font-medium">NOTE</th>
-              <th class="px-6 py-4 text-center font-medium">BILL</th>
-              <th class="px-6 py-4 text-center font-medium w-28">ACTIONS</th>
+              <th class="px-3 sm:px-6 py-4 text-left font-medium">DATE</th>
+              <th class="px-3 sm:px-6 py-4 text-left font-medium">CATEGORY</th>
+              <th class="px-3 sm:px-6 py-4 text-right font-medium">AMOUNT</th>
+              <th class="px-3 sm:px-6 py-4 text-left font-medium">NOTE</th>
+              <th class="px-3 sm:px-6 py-4 text-center font-medium">BILL</th>
+              <th class="px-3 sm:px-6 py-4 text-center font-medium w-28">ACTIONS</th>
             </tr>
           </thead>
           <tbody class="divide-y divide-slate-100 text-sm">
             <tr *ngFor="let exp of expenses()" class="hover:bg-emerald-50 transition-colors">
-              <td class="px-6 py-3.5">{{ exp.date | date:'dd-MMM-yyyy' }}</td>
-              <td class="px-6 py-3.5">
+              <td class="px-3 sm:px-6 py-3.5">{{ exp.date | date:'dd-MMM-yyyy' }}</td>
+              <td class="px-3 sm:px-6 py-3.5">
                 <span
                   class="inline-flex items-center gap-2 px-4 py-1 bg-emerald-100 text-emerald-700 rounded-full text-sm">
                   <span class="w-2 h-2 bg-emerald-500 rounded-full"></span>
                   {{ exp.category }}
                 </span>
               </td>
-              <td class="px-6 py-3.5 text-right font-semibold text-emerald-700">₹ {{ exp.amount }}</td>
-              <td class="px-6 py-3.5 text-slate-600">{{ exp.note || '—' }}</td>
-              <td class="px-6 py-3.5 text-center text-teal-600 hover:underline cursor-pointer">
+              <td class="px-3 sm:px-6 py-3.5 text-right font-semibold text-emerald-700">₹ {{ exp.amount }}</td>
+              <td class="px-3 sm:px-6 py-3.5 text-slate-600">{{ exp.note || '—' }}</td>
+              <td class="px-3 sm:px-6 py-3.5 text-center text-teal-600 hover:underline cursor-pointer">
                 @if(exp.bill){Receipt}</td>
-              <td class="px-6 py-3.5">
-                <div class="flex justify-center gap-4">
+              <td class="px-3 sm:px-6 py-3.5">
+                <div class="flex justify-center gap-2 sm:gap-4">
                   <button (click)="onEdit(exp)" class="group relative flex items-center justify-center
-           w-10 h-10 rounded-xl
+           w-9 h-9 sm:w-10 sm:h-10 rounded-xl
            bg-amber-50 text-amber-600
            hover:bg-amber-500 hover:text-white
            shadow-sm hover:shadow-md
-           transition-all duration-300"> <i class="fa-solid fa-pen-to-square text-lg
+           transition-all duration-300"> <i class="fa-solid fa-pen-to-square text-base sm:text-lg
               group-hover:rotate-12 transition">
                     </i></button>
                   <button (click)="onDelete(exp)" class="group relative flex items-center justify-center
-           w-10 h-10 rounded-xl
+           w-9 h-9 sm:w-10 sm:h-10 rounded-xl
            bg-red-50 text-red-600
            hover:bg-red-600 hover:text-white
            shadow-sm hover:shadow-md
-           transition-all duration-300"> <i class="fa-solid fa-trash text-lg
+           transition-all duration-300"> <i class="fa-solid fa-trash text-base sm:text-lg
               group-hover:animate-bounce">
                     </i>
                   </button>
                 </div>
               </td>
             </tr>
+            @if(expenses().length === 0){
+
+            <tr>
+
+              <td colspan="6" class="px-6 py-10 text-center">
+
+                <div class="flex flex-col items-center">
+
+                  <i class="fa-solid fa-folder-open text-4xl sm:text-5xl text-slate-300 mb-3"></i>
+
+                  <p class="text-base sm:text-lg font-semibold text-slate-500">
+
+                    No Expenses Found
+
+                  </p>
+
+                  <p class="text-sm text-slate-400">
+
+                    Start by adding your first expense.
+
+                  </p>
+
+                </div>
+
+              </td>
+
+            </tr>
+
+            }
           </tbody>
         </table>
       </div>
@@ -99,8 +141,10 @@
 
   <!-- Dialog -->
   <div class="relative
-               w-[95%]
-               max-w-xl
+             w-[95%]
+sm:w-[90%]
+md:w-[650px]
+lg:w-[750px]
                bg-white
                rounded-2xl
                shadow-2xl
@@ -137,7 +181,7 @@
     </div>
 
     <!-- Body -->
-    <div class="p-6 max-h-[65vh] overflow-y-auto">
+    <div class="p-6 max-h-[75vh] overflow-y-auto">
 
       <app-expense-form [editData]="editData" (close)="closeForm()">
       </app-expense-form>
@@ -163,7 +207,7 @@
 
 <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
 
-  <div class="w-[90%] max-w-md rounded-2xl bg-white shadow-2xl animate-[fadeIn_.2s_ease-out]">
+  <div class="w-[92%] max-w-md rounded-2xl bg-white shadow-2xl animate-[fadeIn_.2s_ease-out]">
 
     <div class="p-6 text-center">
 
@@ -193,7 +237,8 @@
 
     </div>
 
-    <div class="flex justify-end gap-3 border-t p-5">
+    <div class="flex flex-col-reverse sm:flex-row
+justify-end gap-3 border-t p-5">
 
       <button (click)="cancelDelete()"
         class="rounded-xl border border-slate-300 px-5 py-2.5 font-medium text-slate-600 transition hover:bg-slate-100">

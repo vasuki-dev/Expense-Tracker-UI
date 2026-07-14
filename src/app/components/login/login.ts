@@ -1,10 +1,10 @@
 import { Component, computed, signal } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { loginService } from '../../service/login_service';
 import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-login',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './login.html',
   styleUrl: './login.scss'
 })
