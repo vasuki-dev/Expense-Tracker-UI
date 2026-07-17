@@ -1,5 +1,5 @@
 import { CommonModule, DatePipe } from '@angular/common';
-import { Component, Input, Output, EventEmitter, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, inject, computed } from '@angular/core';
 import { ExpenseForm } from '../expense-form/expense-form';
 import { ExpenseService } from '../../service/expense_service';
 import { ToastrService } from 'ngx-toastr';
@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
   providers: [DatePipe]
 })
 export class ExpenseList implements OnInit {
+  @Input() mode!: string;
   filteredExpenses!: any[];
   selectedExpense: any;
   constructor(private expeneService: ExpenseService, private toast: ToastrService, private cdr: ChangeDetectorRef) { }
@@ -27,6 +28,20 @@ export class ExpenseList implements OnInit {
   // send edit event to dashboard
   @Output() edit = new EventEmitter<any>();
   editData: any;
+
+  modeExpenses = computed(() => {
+
+    if (this.mode !== 'D') {
+      return this.expenses();
+    }
+
+    const today = this.getTodayDate();
+
+    return this.expenses().filter(exp =>
+      exp.date === today
+    );
+
+  });
   ngOnInit(): void {
     this.userdetails = JSON.parse(localStorage.getItem('userdetails') || '{}');
     console.log(this.userdetails, '------------> user details');
@@ -34,6 +49,19 @@ export class ExpenseList implements OnInit {
       userCode: this.userdetails?.userCode
     }
     this.expeneService.expenseList(data);
+    if (this.mode === 'D') {
+
+    }
+  }
+  getTodayDate() {
+
+    const today = new Date();
+
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+
+    return `${year}-${month}-${day}`;
   }
   applyFilters() {
 

@@ -26,7 +26,9 @@ export class Topbar implements OnInit {
   goDash() {
     this.router.navigate(['/layout/dashboard']);
   }
-
+  closeProfileMenu() {
+    this.showProfileMenu = false;
+  }
   confirmLogout() {
 
     this.showProfileMenu = false;

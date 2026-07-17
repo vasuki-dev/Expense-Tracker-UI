@@ -36,13 +36,14 @@
         </div>
 
         <!-- Monthly Expense -->
-        <div class="flex flex-col lg:flex-row sm:items-center lg:justify-between gap-4 bg-blue-50 rounded-2xl p-5 shadow">
-        <div class="">
+        <div
+          class="flex flex-col lg:flex-row sm:items-center lg:justify-between gap-4 bg-blue-50 rounded-2xl p-5 shadow">
+          <div class="">
 
             <div class="inline-flex items-center
                    bg-white rounded-xl border
                    px-4 py-2 w-fit">
-               <!-- <i class="fa-regular fa-calendar text-slate-500 mr-2"></i> -->
+              <!-- <i class="fa-regular fa-calendar text-slate-500 mr-2"></i> -->
               <input type="month" [max]="maxMonth" [value]="selectedMonthYear()" (change)="monthChange($event)"
                 class="bg-transparent outline-none text-gray-700 font-medium cursor-pointer">
 
@@ -72,7 +73,7 @@
       </div>
 
       <!-- Action Buttons -->
-   <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
 
         <button
           class="flex items-center justify-center gap-3 border-b bg-gradient-to-r from-teal-600 to-cyan-600 text-white text-lg font-semibold py-4 rounded-lg hover:bg-teal-700 transition"
@@ -96,19 +97,74 @@
       </div>
 
     </div>
-    <!-- <app-expense-list *ngIf="showList" [expenses]="expenses">
-  </app-expense-list> -->
-
-    <!-- @if (openForm) {
-    <app-expense-form [editData]="editData" (close)="closeForm()">
-    </app-expense-form>
-    } -->
+    <app-expense-list [mode]="'D'">
+    </app-expense-list>
   </div>
 
-  <div class="lg:col-span-4">
+  <!-- <div class="lg:col-span-4">
     <div class="flex justify-center">
       <img src="expenseTracker.jpg" width="150px" class="img">
     </div>
+  </div> -->
+  <div class="lg:col-span-4 mt-6 lg:mt-0">
+
+    <div class="flex flex-col gap-6">
+
+      <!-- Category Wise Pie Chart -->
+      <div class="bg-white rounded-2xl shadow-lg border border-slate-100 p-5">
+
+        <div class="flex items-center justify-between mb-4 mt-2">
+
+          <h3 class="text-lg font-semibold text-slate-800">
+            Category Wise Expense
+          </h3>
+
+          <div class="w-10 h-10 rounded-xl bg-teal-100 flex items-center justify-center">
+            🥧
+          </div>
+
+        </div>
+
+        <div class="h-72">
+
+          <canvas baseChart [data]="pieChartData" [options]="pieChartOptions" type="pie">
+          </canvas>
+
+        </div>
+
+      </div>
+
+      <!-- Monthly Expense Trend -->
+      <div class="bg-white rounded-2xl shadow-lg border border-slate-100 p-5">
+
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-lg font-semibold">
+            Monthly Expense Trend
+          </h3>
+
+          <select [(ngModel)]="selectedYear" (change)="loadMonthlyChart()"
+            class="rounded-lg border border-slate-300 px-3 py-2">
+
+            @for(year of years; track year){
+            <option [value]="year">
+              {{year}}
+            </option>
+            }
+
+          </select>
+        </div>
+
+        <div class="h-72">
+
+          <canvas baseChart [data]="lineChartData" [options]="lineChartOptions" type="line">
+          </canvas>
+
+        </div>
+
+      </div>
+
+    </div>
+
   </div>
 
 </div>

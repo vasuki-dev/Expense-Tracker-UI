@@ -5,24 +5,28 @@
 
         <div class="min-h-screen flex items-center justify-center lg:justify-end px-4 sm:px-8 lg:px-10">
 
-            <div
-                class="w-full max-w-md lg:max-w-xl
-                       bg-white/95 backdrop-blur-sm
-                       shadow-2xl rounded-3xl
-                       p-6 sm:p-8 lg:p-12">
+            <div class="w-full
+max-w-md
+max-h-[90vh]
+overflow-y-auto
+bg-white/95
+backdrop-blur-sm
+rounded-3xl
+shadow-2xl
+p-5
+lg:p-8" style="margin-top: 2rem !important; margin-bottom: 2rem !important;">
 
                 <!-- Logo -->
 
-                <div class="flex justify-center mb-6">
+                <div class="flex justify-center">
 
-                    <img src="CashQuery.png"
-                         class="w-28 sm:w-36 lg:w-40">
+                    <img src="CashQuery.png" class="w-20 sm:w-36 lg:w-30">
 
                 </div>
 
                 <!-- Heading -->
 
-                <div class="text-center mb-8">
+                <div class="text-center mb-3">
 
                     <h1 class="text-2xl sm:text-3xl font-bold text-slate-800">
 
@@ -40,7 +44,7 @@
 
                 <!-- Username -->
 
-                <div class="mb-5">
+                <div class="mb-3">
 
                     <label class="block mb-2 text-sm sm:text-base font-semibold text-slate-700">
 
@@ -48,12 +52,8 @@
 
                     </label>
 
-                    <input
-                        type="text"
-                        [value]="username()"
-                        (input)="username.set($event.target.value)"
-                        [class.border-red-500]="usernameError()"
-                        class="w-full rounded-xl border border-slate-300
+                    <input type="text" [value]="username()" (input)="username.set($event.target.value)"
+                        [class.border-red-500]="usernameError()" class="w-full rounded-xl border border-slate-300
                                bg-slate-50
                                px-4 py-3
                                focus:bg-white
@@ -76,7 +76,7 @@
 
                 <!-- Password -->
 
-                <div class="mb-6">
+                <div class="mb-3">
 
                     <label class="block mb-2 text-sm sm:text-base font-semibold text-slate-700">
 
@@ -84,12 +84,8 @@
 
                     </label>
 
-                    <input
-                        type="password"
-                        [value]="password()"
-                        (input)="password.set($event.target.value)"
-                        [class.border-red-500]="passwordError()"
-                        class="w-full rounded-xl border border-slate-300
+                    <input type="password" [value]="password()" (input)="password.set($event.target.value)"
+                        [class.border-red-500]="passwordError()" class="w-full rounded-xl border border-slate-300
                                bg-slate-50
                                px-4 py-3
                                focus:bg-white
@@ -112,11 +108,9 @@
 
                 <!-- Forgot Password -->
 
-                <div class="flex justify-end mb-6">
+                <div class="flex justify-end mb-2">
 
-                    <a
-                        routerLink="/forgot-password"
-                        class="text-sm text-teal-600 hover:underline">
+                    <a routerLink="/forgot-password" class="text-sm text-teal-600 hover:underline">
 
                         Forgot Password?
 
@@ -126,9 +120,7 @@
 
                 <!-- Login -->
 
-                <button
-                    (click)="login()"
-                    class="w-full rounded-xl
+                <button (click)="login()" class="w-full rounded-xl
                            py-3
                            bg-gradient-to-r
                            from-teal-600
@@ -147,7 +139,7 @@
 
                 <!-- Signup -->
 
-                <div class="mt-8 text-center">
+                <div class="mt-2 text-center">
 
                     <span class="text-slate-600">
 
@@ -155,9 +147,7 @@
 
                     </span>
 
-                    <a
-                        routerLink="/signup"
-                        class="ml-1 font-semibold text-teal-600 hover:underline">
+                    <a routerLink="/signup" class="ml-1 font-semibold text-teal-600 hover:underline">
 
                         Create Account
 

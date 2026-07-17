@@ -41,16 +41,6 @@
             <!-- Notification badge -->
             <!-- <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full ring-2 ring-white"></span> -->
         </button>
-
-        <!-- Logout -->
-        <!-- <button
-            (click)="logout()"
-            class="flex items-center gap-2 px-5 py-2.5 text-sm font-medium text-gray-700 hover:text-red-600 hover:bg-red-50 border border-gray-200 hover:border-red-200 rounded-xl transition-all duration-200">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4V7m-4 4V7" />
-            </svg>
-            Logout
-        </button> -->
         <div class="relative">
 
             <button (click)="toggleProfileMenu()" class="flex items-center
@@ -97,6 +87,10 @@ justify-center">
             </button>
 
             @if(showProfileMenu){
+ <div
+            class="fixed inset-0 z-40"
+            (click)="closeProfileMenu()">
+        </div>
 
             <div class="absolute right-0 mt-3 w-72
 max-w-[calc(100vw-20px)] bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden z-50">
@@ -114,7 +108,7 @@ max-w-[calc(100vw-20px)] bg-white rounded-2xl shadow-2xl border border-slate-200
 
                         </div>
 
-                        <div>
+                        <div class="flex"  style="align-items: center !important;">
 
                             <p class="font-semibold">
 
